@@ -1,0 +1,54 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+
+   <div class="container">
+        <div class="card">
+            <div class="container">
+                <div class="card-body" style="background-color: #b33d25">
+                    <div align="center" style="color:white;text-align: left;">
+                        Vacation Data
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form>
+                    <table id="table1">
+                        <tr class="row">
+                            <td class="col-12 col-md-9"></td>
+                            <td class="col-12 col-md-3">
+                            <a routerLink="/vacationAdd" class="btn btn-success btn-lg" type="submit">Add</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table" >
+                        <thead>
+                            <tr class="row trow">
+                                <th class="col-6 col-lg-3">Vacation Type</th>
+                                <th class="col-6 col-lg-3">Balance</th>
+                                <th class="col-6 col-lg-3">Edit</th>
+                                <th class="col-6 col-lg-3">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row trow" *ngFor="let vacation of allVacations">
+                                <td class="col-6 col-lg-3">{{vacation.type}}</td>
+                                <td class="col-6 col-lg-3">{{vacation.balance}}</td>
+                                <td class="col-6 col-lg-3">
+                                  <button type="button" class="btn btn-info" (click)="sendVacationToEdit(vacation.id)">Edit</button>
+                                </td>
+                                <td class="col-6 col-lg-2">
+                                  <button type="button" class="btn btn-danger" (click)="deleteVacation(vacation.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>

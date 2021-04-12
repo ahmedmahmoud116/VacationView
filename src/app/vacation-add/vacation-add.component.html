@@ -1,0 +1,47 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+     <div class="container">
+        <div class="card">
+            <div class="container">
+                <div class="card-body" style="background-color: #b33d25">
+                    <div align="center" style="color:white;text-align: left;">
+                        Vacation Data
+                    </div>
+                </div>
+            </div>
+            <br><br>
+             <div class="card-body">
+                <form [formGroup]="vacationForm"(ngSubmit)="onFormSubmit()">
+                    <table id="table1">
+                        <tr class="row row1">
+                            <td class="col-12 col-md-6">
+                                <input formControlName="type" class="inputs" placeholder="Vacation Type">
+                                <mat-error>
+                                  <span *ngIf="!vacationForm.get('type').value && vacationForm.get('type').touched"></span>
+                                </mat-error>
+                            </td>
+                            <td class="col-12 col-md-6">
+                                <input formControlName="balance" class="inputs" placeholder="Balance">
+                                <mat-error>
+                                  <span *ngIf="!vacationForm.get('balance').value && vacationForm.get('balance').touched"></span>
+                                </mat-error>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-12 col-md-6"></td>
+                            <td class="col-12 col-md-6">
+                            <button type="submit" class="btn btn-primary" [disabled]="!vacationForm.valid">Submit</button>
+                            <button type="reset" class="btn btn-danger" (click)="resetForm()">Reset</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+             </div>
+
+        </div>
+     </div>
+</body>

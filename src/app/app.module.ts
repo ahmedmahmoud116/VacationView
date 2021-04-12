@@ -23,17 +23,28 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
+import { VacationComponent } from './vacation/vacation.component';
+import { VacationAddComponent } from './vacation-add/vacation-add.component';
+import { EmployeebalanceComponent } from './employeebalance/employeebalance.component';
+import { EmployeebalanceAddComponent } from './employeebalance-add/employeebalance-add.component';
 
 const appRoutes: Routes =[
   { path:'employee', component: EmployeeComponent},
   { path:'employeeAdd', component: EmployeeAddComponent},
-  { path:'employeeAdd/:id', component: EmployeeAddComponent}
+  { path:'employeeAdd/:id', component: EmployeeAddComponent},
+  { path:'vacation', component: VacationComponent},
+  { path:'vacationAdd', component: VacationAddComponent},
+  { path:'vacationAdd/:id', component: VacationAddComponent}
 ];
 @NgModule({
   declarations: [
     AppComponent,
     EmployeeComponent,
-    EmployeeAddComponent
+    EmployeeAddComponent,
+    VacationComponent,
+    VacationAddComponent,
+    EmployeebalanceComponent,
+    EmployeebalanceAddComponent
   ],
   imports: [
     BrowserModule,
