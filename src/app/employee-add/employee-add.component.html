@@ -1,0 +1,67 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+      <div class="container">
+          <div class="card">
+            <div class="container">
+                <div class="card-body" style="background-color: #19659c">
+                    <div align="center" style="color:white;text-align: left;">
+                        Employee Form
+                    </div>
+                </div>
+            </div>
+            <br><br>
+            <div class="card-body">
+              <form [formGroup]="employeeForm"(ngSubmit)="onFormSubmit()">
+                    <table id="table1">
+                        <tr class="row row1">
+                            <td class="col-12 col-md-6">
+                                <input formControlName="fullName" class="inputs" placeholder="Employee Name">
+                                <mat-error>
+                                  <span *ngIf="!employeeForm.get('fullName').value && employeeForm.get('fullName').touched"></span>
+                                </mat-error>
+                            </td>
+                            <td class="col-12 col-md-6">
+                                <!--<input class="inputs" placeholder="Choose Date Of Birth">-->
+                                <input class="inputs" matInput [matDatepicker]="picker"matTooltip="Enter Date Of Birth" formControlName="birthDate"placeholder="Choose Date Of Birth">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error>
+                                  <span *ngIf="!employeeForm.get('birthDate').value && employeeForm.get('birthDate').touched"></span>
+                                </mat-error>
+                            </td>
+                        </tr>
+                        <tr class="row row1">
+                            <td class="col-12 col-md-6">
+                                <input formControlName="email" class="inputs" placeholder="Email">
+                                <mat-error>
+                                  <span *ngIf="!employeeForm.get('email').value && employeeForm.get('email').touched"></span>
+                                </mat-error>
+                            </td>
+                            <td class="col-12 col-md-6">
+                                <span>Gender: </span>
+                                <mat-radio-group matTooltip="Enter Gender"formControlName="gender">
+                                  <mat-radio-button class="mr-1" value="Male">Male</mat-radio-button>
+                                  <mat-radio-button class="mr-1" value="Female">Female</mat-radio-button>
+                                </mat-radio-group>
+                                <mat-error>
+                                  <span *ngIf="!employeeForm.get('gender').value && employeeForm.get('gender').touched"></span>
+                                </mat-error>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-12 col-md-6"></td>
+                            <td class="col-12 col-md-6">
+                            <button type="submit" class="btn btn-primary" [disabled]="!employeeForm.valid">Submit</button>
+                            <button type="reset" class="btn btn-danger" (click)="resetForm()">Reset</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+           </div>
+        </div>
+    </div>
+</body>

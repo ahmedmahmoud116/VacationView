@@ -1,0 +1,61 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+
+   <div class="container">
+
+        <div class="card">
+            <div class="container">
+                <div class="card-body" style="background-color: #19659c">
+                    <div align="center" style="color:white;text-align: left;">
+                        Employee Form
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <form>
+                    <table id="table1">
+                        <tr class="row">
+                            <td class="col-12 col-md-9"></td>
+                            <td class="col-12 col-md-3">
+                            <a routerLink="/employeeAdd" class="btn btn-success btn-lg" type="submit">Add</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table" >
+                        <thead>
+                            <tr class="row trow">
+                                <th class="col-6 col-lg-2">Employee Name</th>
+                                <th class="col-6 col-lg-2">Date Of Birth</th>
+                                <th class="col-6 col-lg-2">Email</th>
+                                <th class="col-6 col-lg-2">Gender</th>
+                                <th class="col-6 col-lg-2">Edit</th>
+                                <th class="col-6 col-lg-2">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row trow" *ngFor="let employee of allEmployees">
+                                <td class="col-6 col-lg-2">{{employee.fullName}}</td>
+                                <td class="col-6 col-lg-2">{{employee.birthDate}}</td>
+                                <td class="col-6 col-lg-2">{{employee.email}}</td>
+                                <td class="col-6 col-lg-2">{{compare(employee.gender, 'Male') ? 'Male' : 'Female'}}</td>
+                                <td class="col-6 col-lg-2">
+                                <button type="button" class="btn btn-info" >Edit</button>
+                                </td>
+                                <td class="col-6 col-lg-2">
+                                <button type="button" class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
