@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { from, Observable } from 'rxjs';
 import { EmployeeService } from '../employee.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Employee } from '../employee';
 import { map } from 'rxjs/operators';
 
@@ -13,7 +14,7 @@ import { map } from 'rxjs/operators';
 export class EmployeeComponent implements OnInit {
   employeeForm: any;
   allEmployees:any =  [];
-  constructor(private formbulider: FormBuilder, private employeeService:EmployeeService) { }
+  constructor(private formbulider: FormBuilder, private employeeService:EmployeeService, private router:Router) { }
 
   ngOnInit(): void {
     this.loadAllEmployees();
@@ -21,7 +22,6 @@ export class EmployeeComponent implements OnInit {
 
   loadAllEmployees() {
     this.employeeService.getAllEmployee().subscribe(employee =>{
-      console.log(employee);
       this.allEmployees = employee;
     });
 
@@ -34,10 +34,13 @@ export class EmployeeComponent implements OnInit {
       this.loadAllEmployees();
       // this.employeeIdUpdate = null;
       // this.employeeForm.reset();
-
     });
   }
-}
+ }
+
+ sendEmployeeToEdit(employeeID: number){
+  this.router.navigate([`employeeAdd/${employeeID}`]);
+ }
 
   compare(str1 : string, str2 : string){
     return str1.localeCompare(str2) == 0;

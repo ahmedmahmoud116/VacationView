@@ -44,7 +44,8 @@
                                 <td class="col-6 col-lg-2">{{employee.email}}</td>
                                 <td class="col-6 col-lg-2">{{compare(employee.gender, 'Male') ? 'Male' : 'Female'}}</td>
                                 <td class="col-6 col-lg-2">
-                                <button type="button" class="btn btn-info" >Edit</button>
+                                <button type="button" class="btn btn-info" (click)="sendEmployeeToEdit(employee.id)">Edit</button>
+                                <!--<a [routerLink]="['employeeAdd', employee.id]" class="btn btn-info">Edit</a>-->
                                 </td>
                                 <td class="col-6 col-lg-2">
                                 <button type="button" class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</button>
