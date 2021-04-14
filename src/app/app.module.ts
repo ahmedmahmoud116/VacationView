@@ -34,7 +34,10 @@ const appRoutes: Routes =[
   { path:'employeeAdd/:id', component: EmployeeAddComponent},
   { path:'vacation', component: VacationComponent},
   { path:'vacationAdd', component: VacationAddComponent},
-  { path:'vacationAdd/:id', component: VacationAddComponent}
+  { path:'vacationAdd/:id', component: VacationAddComponent},
+  { path:'employeebalance', component: EmployeebalanceComponent},
+  { path:'employeebalanceAdd', component: EmployeebalanceAddComponent},
+  { path:'employeebalanceAdd/:id', component: EmployeebalanceAddComponent}
 ];
 @NgModule({
   declarations: [

@@ -1,1 +1,57 @@
-<p>employeebalance-add works!</p>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+     <div class="container">
+        <div class="card">
+            <div class="container">
+                <div class="card-body" style="background-color: #339da1">
+                    <div align="center" style="color:white;text-align: left;">
+                        Employee Balance
+                    </div>
+                </div>
+            </div>
+            <br><br>
+             <div class="card-body">
+                <form [formGroup]="employeebalanceForm"(ngSubmit)="onFormSubmit()">
+                    <table id="table1">
+                        <tr class="row row1">
+                             <td class="col-12 col-md-6">
+                              <label for="EmployeeName">Employee Name:</label>
+                                <select name="EmployeeName" class="dropdown" formControlName="employeeid">
+                                    <option *ngFor="let employee of employeeList" [value]="convertValue(employee.id)">{{employee.fullName}}</option>
+                                </select>
+                              <mat-error>
+                                  <span *ngIf="!employeebalanceForm.get('employeeid').value && employeebalanceForm.get('employeeid').touched"></span>
+                              </mat-error>
+                            </td>
+                            <td class="col-12 col-md-6">
+                                <label for="VacationType">Vacation Type:</label>
+                                <select name="VacationType" class="dropdown" formControlName="vacationid">
+                                    <option *ngFor="let vacation of vacationList" [value]="convertValue(vacation.id)">{{vacation.type}}</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr class="row row1">
+                             <td class="col-12 col-md-12">
+                                <input formControlName="balance" class="inputs" placeholder="Balance">
+                                 <mat-error>
+                                  <span *ngIf="!employeebalanceForm.get('balance').value && employeebalanceForm.get('balance').touched"></span>
+                                </mat-error>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-12 col-md-6"></td>
+                            <td class="col-12 col-md-6">
+                              <button type="submit" class="btn btn-primary" [disabled]="!employeebalanceForm.valid">Submit</button>
+                              <button type="reset" class="btn btn-danger" (click)="resetForm()">Reset</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+             </div>
+        </div>
+     </div>
+</body>

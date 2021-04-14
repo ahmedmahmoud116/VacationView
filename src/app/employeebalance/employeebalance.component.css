@@ -1,0 +1,83 @@
+body{
+  font-family: 'Roboto', sans-serif;
+}
+
+.inputs{
+  outline: 0;
+  border-width: 0 0 2px;
+}
+
+table{
+  border-collapse: separate;
+  border-spacing: 20px 10px;
+}
+
+.table thead th{
+  border: none;
+}
+
+.table tbody td{
+  border: none;
+}
+
+.row1{
+  margin-bottom: 20px;
+}
+
+#table1{
+  width: 1068px;
+}
+
+.balanceinput{
+  width: 30px;
+}
+
+.savebtn{
+  color: white;
+  background-color:#eddc1a
+}
+
+.dropdown{
+  width: 150px;
+  border-color: #339da1;
+  border-bottom-width: thin;
+  border-style: none;
+  border-bottom-style: solid;
+}
+
+.btn-lg{
+  width: 200px;
+}
+
+.btn-white{
+  background-color: #fff;
+  color: #333;
+  border: 0;
+}
+.btn {
+  border-radius: 30px;
+}
+.btn-white:hover {
+  background-color: #eee;
+
+}
+.btn-white:active, .btn-white.active, .btn-white:focus {
+  background-color: #ddd;
+
+}
+.card {
+  box-shadow: 0 0 12px 2px rgba(51, 51, 51, 11%);
+}
+
+@media (max-width: 1000px){
+  .container .card{
+      display: flex;
+      justify-content: center;
+  }
+  .trow{
+      width: 500px;
+      display: flex;
+      justify-content: start;
+      align-items: start;
+  }
+}
