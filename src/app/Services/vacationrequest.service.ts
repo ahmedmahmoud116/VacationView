@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Vacationrequest } from '../Models/vacationrequest';
+import { VacationrequestView } from '../Models/vacationrequest-view';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,10 @@ export class VacationrequestService {
   url = 'https://localhost:5001/api/EmployeeRequest';
   constructor(private http: HttpClient) { }
 
-  getAllVacationRequest(): Observable<Vacationrequest[]> {
-    return this.http.get<Vacationrequest[]>(this.url);
+  getAllVacationRequest(): Observable<VacationrequestView[]> {
+    return this.http.get<VacationrequestView[]>(this.url);
   }
-  getAllVacationRequestById(vacationrequestId: number): Observable<Vacationrequest> {
+  getVacationRequestById(vacationrequestId: number): Observable<Vacationrequest> {
     return this.http.get<Vacationrequest>(this.url + '/' + vacationrequestId);
   }
   createVacationRequest(vacationrequest: Vacationrequest): Observable<Vacationrequest> {

@@ -35,15 +35,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="row trow" *ngFor="let vacationrequest of allVacationrequests">
-                                <td class="col-6 col-lg-3">{{vacationrequest.employ}}</td>
-                                <td class="col-6 col-lg-3">{{vacationrequest.vacationid}}</td>
-                                <td class="col-12 col-lg-2">{{vacationrequest.days}}</td>
+                            <tr class="row trow" *ngFor="let vacationrequestview of allVacationrequestviews">
+                                <td class="col-6 col-lg-3">{{vacationrequestview.fullName}}</td>
+                                <td class="col-6 col-lg-3">{{vacationrequestview.type}}</td>
+                                <td class="col-12 col-lg-2">{{vacationrequestview.days}}</td>
                                 <td class="col-6 col-lg-2">
-                                  <button type="button" class="btn btn-info" (click)="sendVacationrequestToEdit(vacation.id)">Edit</button>
+                                  <button type="button" class="btn btn-info" (click)="sendVacationrequestToEdit(vacationrequestview.id)">Edit</button>
                                 </td>
                                 <td class="col-6 col-lg-2">
-                                  <button type="button" class="btn btn-danger" (click)="deleteVacationrequest(vacation.id)">Delete</button>
+                                  <button type="button" class="btn btn-danger" (click)="deleteVacationrequest(vacationrequestview.id)">Delete</button>
                                 </td>
                             </tr>
                         </tbody>

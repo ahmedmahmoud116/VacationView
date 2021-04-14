@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { EmployeebalanceService } from '../../Services/employeebalance.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,7 +8,7 @@ import { Vacationview } from '../../Models/vacationview';
   templateUrl: './employeebalance.component.html',
   styleUrls: ['./employeebalance.component.css']
 })
-export class EmployeebalanceComponent implements OnInit {
+export class EmployeebalanceComponent implements OnInit, OnChanges{
   employeeForm: any;
   allVacationviews:any =  [];
   employeebalanceForm: any;
@@ -20,10 +20,6 @@ export class EmployeebalanceComponent implements OnInit {
               { }
 
   ngOnInit(): void {
-    // this.employeebalanceForm = this.formbulider.group({
-    //   balance: ['', [Validators.required]]
-    // });
-
     this.loadAllEmployeebalances();
   }
 

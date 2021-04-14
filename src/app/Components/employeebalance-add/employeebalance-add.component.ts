@@ -73,18 +73,6 @@ export class EmployeebalanceAddComponent implements OnInit {
     }
   }
 
-  // loadEmployeeBalanceToEdit(employeeId: number) {
-  //   this.employeeService.getEmployeeById(employeeId).subscribe(employee=> {
-  //     // this.message = null;
-  //     this.dataSaved = false;
-  //     this.employeebalanceIdUpdate = employee.id;
-  //     this.employeebalanceForm.controls['fullName'].setValue(employee.fullName);
-  //     this.employeebalanceForm.controls['birthDate'].setValue(employee.birthDate);
-  //     this.employeebalanceForm.controls['email'].setValue(employee.email);
-  //     this.employeebalanceForm.controls['gender'].setValue(employee.gender);
-  //   });
-  // }
-
   resetForm() {
     this.employeebalanceForm.reset();
     // this.message = null;

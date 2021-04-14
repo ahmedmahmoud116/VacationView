@@ -39,7 +39,6 @@
                               <td class="col-6 col-lg-3">{{vacationview.type}}</td>
                               <td class="col-6 col-lg-3">
                                 <input class="inputs balanceinput" [(ngModel)]="vacationview.balance" placeholder="{{vacationview.balance}}" name="balance{{i}}">
-                                <!---->
                               </td>
                               <td class="col-6 col-lg-3">{{vacationview.used}}</td>
                           </tr>
@@ -47,6 +46,7 @@
                               <td class="col-12 col-md-9"></td>
                               <td class="col-12 col-md-3">
                                   <button type="button" class="btn btn-lg savebtn" (click)="changeEmployeeBalance(allVacationviews)">Save</button>
+                                  <!--[disabled] = *ngIf = "vacationForm.get('balance').touched" -->
                               </td>
                           </tr>
                     </tbody>

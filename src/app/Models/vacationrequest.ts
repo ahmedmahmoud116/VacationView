@@ -1,6 +1,6 @@
 export class Vacationrequest {
   id: number;
-  employeeid: number;
-  vacationid: number;
+  employeeID: number;
+  vacationID: number;
   days: number;
 }

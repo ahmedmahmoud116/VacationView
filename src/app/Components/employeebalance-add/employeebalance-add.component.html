@@ -32,6 +32,9 @@
                                 <select name="VacationType" class="dropdown" formControlName="vacationid">
                                     <option *ngFor="let vacation of vacationList" [value]="convertValue(vacation.id)">{{vacation.type}}</option>
                                 </select>
+                                <mat-error>
+                                  <span *ngIf="!employeebalanceForm.get('vacationid').value && employeebalanceForm.get('vacationid').touched"></span>
+                                </mat-error>
                             </td>
                         </tr>
                         <tr class="row row1">

@@ -8,21 +8,22 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./vacationrequest.component.css']
 })
 export class VacationrequestComponent implements OnInit {
-  allVacationrequests:any =  [];
+  allVacationrequestviews:any =  [];
   constructor(private vacationrequestservice:VacationrequestService, private router:Router) { }
 
   ngOnInit(): void {
     this.loadAllVacationrequests();
   }
 
+
   loadAllVacationrequests() {
     this.vacationrequestservice.getAllVacationRequest().subscribe(vacationrequest =>{
-      this.allVacationrequests = vacationrequest;
+      this.allVacationrequestviews = vacationrequest;
     });
 
   }
 
-  deleteVacation(vacationrequestId: number) {
+  deleteVacationrequest(vacationrequestId: number) {
     if (confirm("Are you sure you want to delete this ?")) {
     this.vacationrequestservice.deleteVacationRequestById(vacationrequestId).subscribe(() => {
       this.loadAllVacationrequests();

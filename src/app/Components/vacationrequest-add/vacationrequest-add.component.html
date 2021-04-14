@@ -1,1 +1,61 @@
-<p>vacationrequest-add works!</p>
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+     <div class="container">
+        <div class="card">
+            <div class="container">
+                <div class="card-body" style="background-color: #602580">
+                    <div align="center" style="color:white;text-align: left;">
+                        Vacation Request
+                    </div>
+                </div>
+            </div>
+            <br><br>
+             <div class="card-body">
+                <form [formGroup]="vacationrequestForm"(ngSubmit)="onFormSubmit()">
+                    <table id="table1">
+                        <tr class="row row1">
+                            <td class="col-12 col-md-6">
+                                <label for="EmployeeName">Employee Name:</label>
+                                <select name="EmployeeName" class="dropdown" formControlName="employeeid">
+                                    <option *ngFor="let employee of employeeList" [value]="employee.id">{{employee.fullName}}</option>
+                                </select>
+                                <mat-error>
+                                    <span *ngIf="!vacationrequestForm.get('employeeid').value && vacationrequestForm.get('employeeid').touched"></span>
+                                </mat-error>
+                            </td>
+                            <td class="col-12 col-md-6">
+                                <label for="VacationType">Vacation Type:</label>
+                                <select name="VacationType" class="dropdown" formControlName="vacationid">
+                                    <option *ngFor="let vacation of vacationList" [value]="vacation.id">{{vacation.type}}</option>
+                                </select>
+                                 <mat-error>
+                                    <span *ngIf="!vacationrequestForm.get('vacationid').value && vacationrequestForm.get('vacationid').touched"></span>
+                                </mat-error>
+                            </td>
+                        </tr>
+                        <tr class="row row1">
+                            <td class="col-12 col-md-12">
+                                <input formControlName="days" class="inputs" placeholder="Days">
+                                <mat-error>
+                                  <span *ngIf="!vacationrequestForm.get('days').value && vacationrequestForm.get('days').touched"></span>
+                                </mat-error>
+                            </td>
+                        </tr>
+                        <tr class="row">
+                            <td class="col-12 col-md-6"></td>
+                            <td class="col-12 col-md-6">
+                              <button type="submit" class="btn btn-primary" [disabled]="!vacationrequestForm.valid">Submit</button>
+                              <button type="reset" class="btn btn-danger" (click)="resetForm()">Reset</button>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+             </div>
+
+        </div>
+     </div>
+</body>
