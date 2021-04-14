@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { EmployeebalanceService } from '../employeebalance.service';
-import { Employeebalance } from '../employeebalance';
-import { Vacationview } from '../vacationview';
+import { EmployeebalanceService } from '../../Services/employeebalance.service';
+import { Employeebalance } from '../../Models/employeebalance';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { VacationService } from '../vacation.service';
-import { EmployeeService } from '../employee.service';
+import { VacationService } from '../../Services/vacation.service';
+import { EmployeeService } from '../../Services/employee.service';
 @Component({
   selector: 'app-employeebalance-add',
   templateUrl: './employeebalance-add.component.html',

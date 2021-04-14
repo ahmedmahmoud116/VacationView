@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Employeebalance } from './employeebalance';
-import { Vacationview } from './vacationview';
+import { Employeebalance } from '../Models/employeebalance';
+import { Vacationview } from '../Models/vacationview';
 @Injectable({
   providedIn: 'root'
 })

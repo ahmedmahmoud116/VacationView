@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { VacationService } from '../vacation.service';
-import { Vacation } from '../vacation';
+import { VacationService } from '../../Services/vacation.service';
+import { Vacation } from '../../Models/vacation';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 

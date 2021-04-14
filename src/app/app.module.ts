@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { Component, NgModule } from '@angular/core';
-import { EmployeeService } from './employee.service';
+import { EmployeeService } from './Services/employee.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -9,8 +9,8 @@ import { MatRadioModule } from '@angular/material/radio';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { EmployeeComponent } from './employee/employee.component';
-import { EmployeeAddComponent } from './employee-add/employee-add.component';
+import { EmployeeComponent } from './Components/employee/employee.component';
+import { EmployeeAddComponent } from './Components/employee-add/employee-add.component';
 
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,10 +23,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { VacationComponent } from './vacation/vacation.component';
-import { VacationAddComponent } from './vacation-add/vacation-add.component';
-import { EmployeebalanceComponent } from './employeebalance/employeebalance.component';
-import { EmployeebalanceAddComponent } from './employeebalance-add/employeebalance-add.component';
+import { VacationComponent } from './Components/vacation/vacation.component';
+import { VacationAddComponent } from './Components/vacation-add/vacation-add.component';
+import { EmployeebalanceComponent } from './Components/employeebalance/employeebalance.component';
+import { EmployeebalanceAddComponent } from './Components/employeebalance-add/employeebalance-add.component';
+import { VacationrequestComponent } from './Components/vacationrequest/vacationrequest.component';
+import { VacationrequestAddComponent } from './Components/vacationrequest-add/vacationrequest-add.component';
 
 const appRoutes: Routes =[
   { path:'employee', component: EmployeeComponent},
@@ -37,7 +39,9 @@ const appRoutes: Routes =[
   { path:'vacationAdd/:id', component: VacationAddComponent},
   { path:'employeebalance', component: EmployeebalanceComponent},
   { path:'employeebalanceAdd', component: EmployeebalanceAddComponent},
-  { path:'employeebalanceAdd/:id', component: EmployeebalanceAddComponent}
+  { path:'vacationrequest', component: VacationrequestComponent},
+  { path:'vacationrequestAdd', component: VacationrequestAddComponent},
+  { path:'vacationrequestAdd/:id', component: VacationrequestAddComponent}
 ];
 @NgModule({
   declarations: [
@@ -47,7 +51,9 @@ const appRoutes: Routes =[
     VacationComponent,
     VacationAddComponent,
     EmployeebalanceComponent,
-    EmployeebalanceAddComponent
+    EmployeebalanceAddComponent,
+    VacationrequestComponent,
+    VacationrequestAddComponent
   ],
   imports: [
     BrowserModule,

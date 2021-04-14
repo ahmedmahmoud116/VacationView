@@ -1,8 +1,8 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
-import { EmployeebalanceService } from '../employeebalance.service';
+import { EmployeebalanceService } from '../../Services/employeebalance.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Vacationview } from '../vacationview';
+import { Vacationview } from '../../Models/vacationview';
 @Component({
   selector: 'app-employeebalance',
   templateUrl: './employeebalance.component.html',

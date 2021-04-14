@@ -1,0 +1,57 @@
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+
+   <div class="container">
+        <div class="card">
+            <div class="container">
+                <div class="card-body" style="background-color: #602580">
+                    <div align="center" style="color:white;text-align: left;">
+                        Vacation Request
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <form>
+                    <table id="table1">
+                        <tr class="row">
+                            <td class="col-12 col-md-9"></td>
+                            <td class="col-12 col-md-3">
+                            <a routerLink="/vacationrequestAdd" class="btn btn-success btn-lg" type="submit">Add</a>
+                            </td>
+                        </tr>
+                    </table>
+                    <table class="table" >
+                        <thead>
+                            <tr class="row trow">
+                                <th class="col-6 col-lg-3">Employee Name</th>
+                                <th class="col-6 col-lg-3">Vacation Type</th>
+                                <th class="col-12 col-lg-2">Days</th>
+                                <th class="col-6 col-lg-2">Edit</th>
+                                <th class="col-6 col-lg-2">Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="row trow" *ngFor="let vacationrequest of allVacationrequests">
+                                <td class="col-6 col-lg-3">{{vacationrequest.employ}}</td>
+                                <td class="col-6 col-lg-3">{{vacationrequest.vacationid}}</td>
+                                <td class="col-12 col-lg-2">{{vacationrequest.days}}</td>
+                                <td class="col-6 col-lg-2">
+                                  <button type="button" class="btn btn-info" (click)="sendVacationrequestToEdit(vacation.id)">Edit</button>
+                                </td>
+                                <td class="col-6 col-lg-2">
+                                  <button type="button" class="btn btn-danger" (click)="deleteVacationrequest(vacation.id)">Delete</button>
+                                </td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
