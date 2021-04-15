@@ -23,26 +23,20 @@
                                 <select name="EmployeeName" class="dropdown" formControlName="employeeid">
                                     <option *ngFor="let employee of employeeList" [value]="employee.id">{{employee.fullName}}</option>
                                 </select>
-                                <mat-error>
-                                    <span *ngIf="!vacationrequestForm.get('employeeid').value && vacationrequestForm.get('employeeid').touched"></span>
-                                </mat-error>
+                                <app-control-messages [control]="vacationrequestForm.get('employeeid')"></app-control-messages>
                             </td>
                             <td class="col-12 col-md-6">
                                 <label for="VacationType">Vacation Type:</label>
                                 <select name="VacationType" class="dropdown" formControlName="vacationid">
                                     <option *ngFor="let vacation of vacationList" [value]="vacation.id">{{vacation.type}}</option>
                                 </select>
-                                 <mat-error>
-                                    <span *ngIf="!vacationrequestForm.get('vacationid').value && vacationrequestForm.get('vacationid').touched"></span>
-                                </mat-error>
+                                <app-control-messages [control]="vacationrequestForm.get('vacationid')"></app-control-messages>
                             </td>
                         </tr>
                         <tr class="row row1">
                             <td class="col-12 col-md-12">
                                 <input formControlName="days" class="inputs" placeholder="Days">
-                                <mat-error>
-                                  <span *ngIf="!vacationrequestForm.get('days').value && vacationrequestForm.get('days').touched"></span>
-                                </mat-error>
+                                <app-control-messages [control]="vacationrequestForm.get('days')"></app-control-messages>
                             </td>
                         </tr>
                         <tr class="row">

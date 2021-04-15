@@ -23,26 +23,20 @@
                                 <select name="EmployeeName" class="dropdown" formControlName="employeeid">
                                     <option *ngFor="let employee of employeeList" [value]="convertValue(employee.id)">{{employee.fullName}}</option>
                                 </select>
-                              <mat-error>
-                                  <span *ngIf="!employeebalanceForm.get('employeeid').value && employeebalanceForm.get('employeeid').touched"></span>
-                              </mat-error>
+                              <app-control-messages [control]="employeebalanceForm.get('employeeid')"></app-control-messages>
                             </td>
                             <td class="col-12 col-md-6">
                                 <label for="VacationType">Vacation Type:</label>
                                 <select name="VacationType" class="dropdown" formControlName="vacationid">
                                     <option *ngFor="let vacation of vacationList" [value]="convertValue(vacation.id)">{{vacation.type}}</option>
                                 </select>
-                                <mat-error>
-                                  <span *ngIf="!employeebalanceForm.get('vacationid').value && employeebalanceForm.get('vacationid').touched"></span>
-                                </mat-error>
+                                <app-control-messages [control]="employeebalanceForm.get('vacationid')"></app-control-messages>
                             </td>
                         </tr>
                         <tr class="row row1">
                              <td class="col-12 col-md-12">
                                 <input formControlName="balance" class="inputs" placeholder="Balance">
-                                 <mat-error>
-                                  <span *ngIf="!employeebalanceForm.get('balance').value && employeebalanceForm.get('balance').touched"></span>
-                                </mat-error>
+                                <app-control-messages [control]="employeebalanceForm.get('balance')"></app-control-messages>
                             </td>
                         </tr>
                         <tr class="row">

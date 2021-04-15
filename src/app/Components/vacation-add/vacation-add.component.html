@@ -20,15 +20,11 @@
                         <tr class="row row1">
                             <td class="col-12 col-md-6">
                                 <input formControlName="type" class="inputs" placeholder="Vacation Type">
-                                <mat-error>
-                                  <span *ngIf="!vacationForm.get('type').value && vacationForm.get('type').touched"></span>
-                                </mat-error>
+                                <app-control-messages [control]="vacationForm.get('type')"></app-control-messages>
                             </td>
                             <td class="col-12 col-md-6">
                                 <input formControlName="balance" class="inputs" placeholder="Balance">
-                                <mat-error>
-                                  <span *ngIf="!vacationForm.get('balance').value && vacationForm.get('balance').touched"></span>
-                                </mat-error>
+                                <app-control-messages [control]="vacationForm.get('balance')"></app-control-messages>
                             </td>
                         </tr>
                         <tr class="row">

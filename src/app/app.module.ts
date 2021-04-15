@@ -29,6 +29,8 @@ import { EmployeebalanceComponent } from './Components/employeebalance/employeeb
 import { EmployeebalanceAddComponent } from './Components/employeebalance-add/employeebalance-add.component';
 import { VacationrequestComponent } from './Components/vacationrequest/vacationrequest.component';
 import { VacationrequestAddComponent } from './Components/vacationrequest-add/vacationrequest-add.component';
+import { ValidatorServiceService } from './Services/validator-service.service';
+import { ControlMessagesComponent } from './Components/control-messages/control-messages.component';
 
 const appRoutes: Routes =[
   { path:'employee', component: EmployeeComponent},
@@ -53,7 +55,8 @@ const appRoutes: Routes =[
     EmployeebalanceComponent,
     EmployeebalanceAddComponent,
     VacationrequestComponent,
-    VacationrequestAddComponent
+    VacationrequestAddComponent,
+    ControlMessagesComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +80,8 @@ const appRoutes: Routes =[
     MatTooltipModule,
     MatToolbarModule
   ],
-  providers: [HttpClientModule, EmployeeService,MatDatepickerModule],
+  exports: [ControlMessagesComponent],
+  providers: [HttpClientModule, EmployeeService, MatDatepickerModule, ValidatorServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

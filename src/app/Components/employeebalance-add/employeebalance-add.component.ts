@@ -5,6 +5,7 @@ import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VacationService } from '../../Services/vacation.service';
 import { EmployeeService } from '../../Services/employee.service';
+import { ValidatorServiceService } from '../../Services/validator-service.service';
 @Component({
   selector: 'app-employeebalance-add',
   templateUrl: './employeebalance-add.component.html',
@@ -29,7 +30,7 @@ export class EmployeebalanceAddComponent implements OnInit {
     this.employeebalanceForm = this.formbulider.group({
       employeeid: ['', [Validators.required]],
       vacationid: ['', [Validators.required]],
-      balance: ['', [Validators.required]]
+      balance: ['', [Validators.required, ValidatorServiceService.positiveValidator]]
     });
     // this.employeebalanceIdUpdate= this.route.snapshot.params['id'];
     // if(this.employeebalanceIdUpdate != null)
@@ -74,9 +75,12 @@ export class EmployeebalanceAddComponent implements OnInit {
   }
 
   resetForm() {
+    // debugger;
+    // this.employeebalanceForm.controls['employeeid'].setValue('');
+    // this.employeebalanceForm.controls['vacationid'].setValue('');
+    // this.employeebalanceForm.controls['balance'].setValue(5);
     this.employeebalanceForm.reset();
-    // this.message = null;
-    this.dataSaved = false;
+    // this.dataSaved = false;
   }
 
   returnToEmployeeBalance() {

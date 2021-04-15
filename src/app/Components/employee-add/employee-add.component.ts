@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../../Services/employee.service';
 import { Employee } from '../../Models/employee';
-import { FormBuilder, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, NgForm, Validators, FormGroup, FormControl, FormArray} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { iif } from 'rxjs';
+import { ValidatorServiceService } from '../../Services/validator-service.service';
+import { ControlMessagesComponent } from '../control-messages/control-messages.component';
 
 @Component({
   selector: 'app-employee-add',
   templateUrl: './employee-add.component.html',
   styleUrls: ['./employee-add.component.css']
 })
+
 export class EmployeeAddComponent implements OnInit {
   allEmployees:any =  [];
   employeeForm: any;
@@ -24,7 +27,7 @@ export class EmployeeAddComponent implements OnInit {
     this.employeeForm = this.formbulider.group({
       fullName: ['', [Validators.required]],
       birthDate: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, ValidatorServiceService.emailValidator]],
       gender: ['', [Validators.required]],
     });
     this.employeeIdUpdate= this.route.snapshot.params['id'];

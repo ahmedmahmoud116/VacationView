@@ -3,6 +3,7 @@ import { VacationService } from '../../Services/vacation.service';
 import { Vacation } from '../../Models/vacation';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ValidatorServiceService } from '../../Services/validator-service.service';
 
 @Component({
   selector: 'app-vacation-add',
@@ -22,7 +23,7 @@ export class VacationAddComponent implements OnInit {
   ngOnInit(): void {
     this.vacationForm = this.formbulider.group({
       type: ['', [Validators.required]],
-      balance: ['', [Validators.required]]
+      balance: ['', [Validators.required,ValidatorServiceService.positiveValidator]]
     });
     this.vacationIdUpdate= this.route.snapshot.params['id'];
     if(this.vacationIdUpdate != null)

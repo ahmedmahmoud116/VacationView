@@ -9,7 +9,6 @@ import { Vacationview } from '../../Models/vacationview';
   styleUrls: ['./employeebalance.component.css']
 })
 export class EmployeebalanceComponent implements OnInit, OnChanges{
-  employeeForm: any;
   allVacationviews:any =  [];
   employeebalanceForm: any;
   vacationBalance: any;
@@ -51,9 +50,6 @@ export class EmployeebalanceComponent implements OnInit, OnChanges{
   }
  }
 
- saveEmployeeBalance(employeebalanceId: number){
-
- }
  convertBalance(balance: number){
   return balance;
  }

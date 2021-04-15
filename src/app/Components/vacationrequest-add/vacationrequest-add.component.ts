@@ -5,6 +5,7 @@ import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VacationService } from '../../Services/vacation.service';
 import { EmployeeService } from '../../Services/employee.service';
+import { ValidatorServiceService } from '../../Services/validator-service.service';
 
 @Component({
   selector: 'app-vacationrequest-add',
@@ -31,7 +32,7 @@ export class VacationrequestAddComponent implements OnInit {
     this.vacationrequestForm = this.formbulider.group({
       employeeid: ['', [Validators.required]],
       vacationid: ['', [Validators.required]],
-      days: ['', [Validators.required]]
+      days: ['', [Validators.required, ValidatorServiceService.positiveValidator]]
     });
     // this.employeebalanceIdUpdate= this.route.snapshot.params['id'];
     // if(this.employeebalanceIdUpdate != null)
