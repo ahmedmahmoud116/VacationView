@@ -15,6 +15,10 @@ export class VacationrequestComponent implements OnInit {
     this.loadAllVacationrequests();
   }
 
+  ngAfterViewInit(): void {
+    this.loadAllVacationrequests();
+  }
+
 
   loadAllVacationrequests() {
     this.vacationrequestservice.getAllVacationRequest().subscribe(vacationrequest =>{
@@ -29,6 +33,7 @@ export class VacationrequestComponent implements OnInit {
       this.loadAllVacationrequests();
     });
   }
+  this.loadAllVacationrequests();
  }
 
  sendVacationrequestToEdit(vacationID: number){

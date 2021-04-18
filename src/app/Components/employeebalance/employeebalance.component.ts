@@ -8,7 +8,7 @@ import { Vacationview } from '../../Models/vacationview';
   templateUrl: './employeebalance.component.html',
   styleUrls: ['./employeebalance.component.css']
 })
-export class EmployeebalanceComponent implements OnInit, OnChanges{
+export class EmployeebalanceComponent implements OnInit{
   allVacationviews:any =  [];
   employeebalanceForm: any;
   vacationBalance: any;
@@ -22,7 +22,7 @@ export class EmployeebalanceComponent implements OnInit, OnChanges{
     this.loadAllEmployeebalances();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngAfterViewInit(): void {
     this.loadAllEmployeebalances();
   }
 
@@ -60,6 +60,6 @@ export class EmployeebalanceComponent implements OnInit, OnChanges{
 
  trackByIndex(index: number, obj: any): any {
   return index;
-}
+  }
 
 }

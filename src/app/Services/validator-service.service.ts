@@ -1,18 +1,31 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject} from '@angular/core';
 import { FormArray, FormControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { Vacation } from '../Models/vacation';
+import { Vacationview } from '../Models/vacationview';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValidatorServiceService {
-  static getValidatorErrorMessage(validatorName: string, validatorValue?: any) {
+  static vacationType: Vacation = null;
+  static vacationView: Vacationview = null;
+  // constructor(@Inject('vacationType') vacationType: Vacation){
+  //   ValidatorServiceService.vacationType = vacationType;
+  // }
+
+  static getValidatorErrorMessage(validatorName: string,  vacationtype?: Vacation, vacationview?: Vacationview, validatorValue?: any) {
+    if(vacationtype == null) vacationtype = new Vacation();
+    if(vacationview == null) vacationview = new Vacationview();
     let config = {
       required: 'Required',
-      invalidCreditCard: 'Is invalid credit card number',
+      invalidbalance: `Balance must be lower than ${vacationtype.balance}`,
+      invaliddays: `Balance must be lower than ${+vacationview.balance - +vacationview.used + +1}`,
       invalidEmailAddress: 'Invalid email address',
       invalidNumber:'Invalid Number',
       minlength: `Minimum length ${validatorValue.requiredLength}`
     };
+    ValidatorServiceService.vacationType = vacationtype;
+    ValidatorServiceService.vacationView = vacationview;
 
     return config[validatorName];
   }
@@ -33,12 +46,42 @@ export class ValidatorServiceService {
   static positiveValidator(control) {
     // RFC 2822 compliant regex
     if (
-      control.value.match(/^[1-9]+[0-9]*$/)
+      String(control.value).match(/^[1-9]+[0-9]*$/)
     ) {
       return null;
     } else {
       return { invalidNumber: true };
     }
+  }
+
+  static vacatationbalance(control) {
+    if(ValidatorServiceService.vacationType !== null && control.value !== ''){
+      // console.log("service: " + )
+      if (
+        control.value <= ValidatorServiceService.vacationType.balance
+      ) {
+        return null;
+      } else {
+        return { invalidbalance: true };
+      }
+    }
+    else
+      return null;
+  }
+
+  static vacatationdays(control) {
+    if(ValidatorServiceService.vacationView !== null && control.value !== ''){
+      console.log("control: " + control.value)
+      if (
+        control.value <= (+ValidatorServiceService.vacationView.balance - +ValidatorServiceService.vacationView.used)
+      ) {
+        return null;
+      } else {
+        return { invaliddays: true };
+      }
+    }
+    else
+      return null;
   }
 
   static isNumber(c: FormControl): ValidationErrors {

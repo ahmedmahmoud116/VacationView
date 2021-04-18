@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { EmployeebalanceService } from '../../Services/employeebalance.service';
 import { Employeebalance } from '../../Models/employeebalance';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
@@ -6,6 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { VacationService } from '../../Services/vacation.service';
 import { EmployeeService } from '../../Services/employee.service';
 import { ValidatorServiceService } from '../../Services/validator-service.service';
+import { Vacation } from 'src/app/Models/vacation';
 @Component({
   selector: 'app-employeebalance-add',
   templateUrl: './employeebalance-add.component.html',
@@ -18,6 +19,9 @@ export class EmployeebalanceAddComponent implements OnInit {
   employeebalanceIdUpdate = null as any;
   vacationList: any;
   employeeList: any;
+  vacationObj: any;
+  vacationtype: Vacation;
+
 
   constructor(private formbulider: FormBuilder,
               private employeebalanceService:EmployeebalanceService,
@@ -30,7 +34,7 @@ export class EmployeebalanceAddComponent implements OnInit {
     this.employeebalanceForm = this.formbulider.group({
       employeeid: ['', [Validators.required]],
       vacationid: ['', [Validators.required]],
-      balance: ['', [Validators.required, ValidatorServiceService.positiveValidator]]
+      balance: ['', [Validators.required, ValidatorServiceService.positiveValidator, ValidatorServiceService.vacatationbalance]]
     });
     // this.employeebalanceIdUpdate= this.route.snapshot.params['id'];
     // if(this.employeebalanceIdUpdate != null)
@@ -41,6 +45,12 @@ export class EmployeebalanceAddComponent implements OnInit {
     this.employeeService.getAllEmployee().subscribe(employee =>{
       this.employeeList = employee;
     });;
+
+    // if(this.vacationObj != null){
+    //   this.vacationtype = this.vacationList.filter(v => v.id == this.vacationObj)[0];
+    // }
+
+    // this.ngAfterContentChecked();
   }
 
   onFormSubmit() {
@@ -66,9 +76,7 @@ export class EmployeebalanceAddComponent implements OnInit {
       employeebalance.id = this.employeebalanceIdUpdate;
       this.employeebalanceService.updateEmployeeBalance(employeebalance.id, employeebalance).subscribe(() => {
         this.dataSaved = true;
-        // this.message = 'Record Updated Successfully';
         this.employeebalanceIdUpdate = null;
-        // this.employeeForm.reset();
         this.returnToEmployeeBalance();
       });
     }
@@ -89,6 +97,14 @@ export class EmployeebalanceAddComponent implements OnInit {
 
   convertValue(type: string){
     return type;
+  }
+
+  ngAfterContentChecked(): void {
+    //Called after every check of the component's or directive's content.
+    //Add 'implements AfterContentChecked' to the class.
+    if(this.vacationObj != null){
+      this.vacationtype = this.vacationList.filter(v => v.id == this.vacationObj)[0];
+    }
   }
 
 }

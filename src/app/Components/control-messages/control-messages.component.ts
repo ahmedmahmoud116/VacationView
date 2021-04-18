@@ -1,5 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { Vacation } from 'src/app/Models/vacation';
+import { Vacationview } from 'src/app/Models/vacationview';
 import { ValidatorServiceService } from '../../Services/validator-service.service';
 
 @Component({
@@ -10,6 +12,9 @@ import { ValidatorServiceService } from '../../Services/validator-service.servic
 export class ControlMessagesComponent{
   _errorMessage: string;
   @Input() control: FormControl;
+  @Input() vacationType: Vacation;
+  @Input() vacationView: Vacationview;
+
   constructor() { }
 
   get errorMessage() {
@@ -20,6 +25,8 @@ export class ControlMessagesComponent{
       ) {
         return ValidatorServiceService.getValidatorErrorMessage(
           propertyName,
+          this.vacationType,
+          this.vacationView,
           this.control.errors[propertyName]
         );
       }

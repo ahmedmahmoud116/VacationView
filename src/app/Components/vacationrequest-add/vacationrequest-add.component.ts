@@ -5,7 +5,10 @@ import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VacationService } from '../../Services/vacation.service';
 import { EmployeeService } from '../../Services/employee.service';
-import { ValidatorServiceService } from '../../Services/validator-service.service';
+import { EmployeebalanceService } from '../../Services/employeebalance.service';
+import { ValidatorrequestService } from 'src/app/Services/validatorrequest.service';
+import { Vacationview } from 'src/app/Models/vacationview';
+import { ValidatorServiceService } from 'src/app/Services/validator-service.service';
 
 @Component({
   selector: 'app-vacationrequest-add',
@@ -21,18 +24,24 @@ export class VacationrequestAddComponent implements OnInit {
   vacationList: any;
   employeeList: any;
 
+  employeeObj: any;
+  vacationObj: any;
+  allVacationviews: any = [];
+  vacationview: Vacationview;
+
   constructor(private formbulider: FormBuilder,
               private vacationrequestservice: VacationrequestService,
               private route: ActivatedRoute,
               private router: Router,
               private vacationService: VacationService,
-              private employeeService: EmployeeService) { }
+              private employeeService: EmployeeService,
+              private employeebalanceService: EmployeebalanceService) { }
 
   ngOnInit(): void {
     this.vacationrequestForm = this.formbulider.group({
       employeeid: ['', [Validators.required]],
       vacationid: ['', [Validators.required]],
-      days: ['', [Validators.required, ValidatorServiceService.positiveValidator]]
+      days: ['', [Validators.required, ValidatorServiceService.positiveValidator, ValidatorServiceService.vacatationdays]]
     });
     // this.employeebalanceIdUpdate= this.route.snapshot.params['id'];
     // if(this.employeebalanceIdUpdate != null)
@@ -47,6 +56,8 @@ export class VacationrequestAddComponent implements OnInit {
     this.vacationrequestIdUpdate= this.route.snapshot.params['id'];
     if(this.vacationrequestIdUpdate != null)
       this.loadvacationrequestToEdit(this.vacationrequestIdUpdate);
+
+    this.loadAllVacationviews();
   }
 
   onFormSubmit() {
@@ -104,4 +115,19 @@ export class VacationrequestAddComponent implements OnInit {
   convertValue(type: string){
     return type;
   }
+
+  ngAfterContentChecked(): void {
+    //Called after every check of the component's or directive's content.
+    //Add 'implements AfterContentChecked' to the class.
+    if(this.vacationObj != null && this.employeeObj != null){
+      this.vacationview = this.allVacationviews.filter(v => (v.employeeID == this.employeeObj && v.vacationID == this.vacationObj))[0];
+    }
+  }
+
+  loadAllVacationviews() {
+    this.employeebalanceService.getAllEmployeeBalance().subscribe(Vacationview =>{
+      this.allVacationviews = Vacationview;
+    });
+  }
+
 }

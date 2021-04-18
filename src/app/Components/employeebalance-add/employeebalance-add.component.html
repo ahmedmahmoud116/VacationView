@@ -27,7 +27,7 @@
                             </td>
                             <td class="col-12 col-md-6">
                                 <label for="VacationType">Vacation Type:</label>
-                                <select name="VacationType" class="dropdown" formControlName="vacationid">
+                                <select [(ngModel)]="vacationObj" class="dropdown" formControlName="vacationid">
                                     <option *ngFor="let vacation of vacationList" [value]="convertValue(vacation.id)">{{vacation.type}}</option>
                                 </select>
                                 <app-control-messages [control]="employeebalanceForm.get('vacationid')"></app-control-messages>
@@ -36,7 +36,7 @@
                         <tr class="row row1">
                              <td class="col-12 col-md-12">
                                 <input formControlName="balance" class="inputs" placeholder="Balance">
-                                <app-control-messages [control]="employeebalanceForm.get('balance')"></app-control-messages>
+                                <app-control-messages [vacationType]="vacationtype" [control]="employeebalanceForm.get('balance')"></app-control-messages>
                             </td>
                         </tr>
                         <tr class="row">

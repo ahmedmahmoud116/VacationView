@@ -20,14 +20,14 @@
                         <tr class="row row1">
                             <td class="col-12 col-md-6">
                                 <label for="EmployeeName">Employee Name:</label>
-                                <select name="EmployeeName" class="dropdown" formControlName="employeeid">
+                                <select [(ngModel)]="employeeObj" name="EmployeeName" class="dropdown" formControlName="employeeid">
                                     <option *ngFor="let employee of employeeList" [value]="employee.id">{{employee.fullName}}</option>
                                 </select>
                                 <app-control-messages [control]="vacationrequestForm.get('employeeid')"></app-control-messages>
                             </td>
                             <td class="col-12 col-md-6">
                                 <label for="VacationType">Vacation Type:</label>
-                                <select name="VacationType" class="dropdown" formControlName="vacationid">
+                                <select [(ngModel)]="vacationObj" name="VacationType" class="dropdown" formControlName="vacationid">
                                     <option *ngFor="let vacation of vacationList" [value]="vacation.id">{{vacation.type}}</option>
                                 </select>
                                 <app-control-messages [control]="vacationrequestForm.get('vacationid')"></app-control-messages>
@@ -36,7 +36,7 @@
                         <tr class="row row1">
                             <td class="col-12 col-md-12">
                                 <input formControlName="days" class="inputs" placeholder="Days">
-                                <app-control-messages [control]="vacationrequestForm.get('days')"></app-control-messages>
+                                <app-control-messages [vacationView]="vacationview" [control]="vacationrequestForm.get('days')"></app-control-messages>
                             </td>
                         </tr>
                         <tr class="row">
