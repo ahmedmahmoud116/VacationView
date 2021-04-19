@@ -31,6 +31,7 @@ import { VacationrequestComponent } from './Components/vacationrequest/vacationr
 import { VacationrequestAddComponent } from './Components/vacationrequest-add/vacationrequest-add.component';
 import { ValidatorServiceService } from './Services/validator-service.service';
 import { ControlMessagesComponent } from './Components/control-messages/control-messages.component';
+import { ToastrModule } from 'ngx-toastr';
 
 const appRoutes: Routes =[
   { path:'employee', component: EmployeeComponent},
@@ -78,7 +79,8 @@ const appRoutes: Routes =[
     MatFormFieldModule,
     MatInputModule,
     MatTooltipModule,
-    MatToolbarModule
+    MatToolbarModule,
+    ToastrModule.forRoot()
   ],
   exports: [ControlMessagesComponent],
   providers: [HttpClientModule, EmployeeService, MatDatepickerModule, ValidatorServiceService],

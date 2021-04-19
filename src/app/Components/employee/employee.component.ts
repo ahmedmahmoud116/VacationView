@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
-import { from, Observable } from 'rxjs';
 import { EmployeeService } from '../../Services/employee.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Employee } from '../../Models/employee';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-employee',

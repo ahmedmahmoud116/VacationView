@@ -18,6 +18,7 @@ export class EmployeeAddComponent implements OnInit {
   employeeForm: any;
   dataSaved = false;
   employeeIdUpdate = null as any;
+  errorstatus: number = 200;
 
   static _errormessage: string = null;
 
@@ -28,10 +29,14 @@ export class EmployeeAddComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeForm = this.formbulider.group({
-      fullName: ['', [Validators.required]],
-      birthDate: ['', [Validators.required]],
-      email: ['', [Validators.required, this.emailValidator]],
-      gender: ['', [Validators.required]],
+      // fullName: ['', [Validators.required]],
+      // birthDate: ['', [Validators.required]],
+      // email: ['', [Validators.required, this.emailValidator]],
+      // gender: ['', [Validators.required]],
+      fullName: [''],
+      birthDate: [''],
+      email: [''],
+      gender: [''],
     });
     this.employeeIdUpdate= this.route.snapshot.params['id'];
     if(this.employeeIdUpdate != null)
@@ -48,13 +53,15 @@ export class EmployeeAddComponent implements OnInit {
   CreateEmployee(employee: Employee) {
     console.log(this.employeeIdUpdate);
     if (this.employeeIdUpdate == null) {
-      this.employeeService.createEmployee(employee).subscribe(
-        () => {
-          this.dataSaved = true;
-          // this.message = 'Record saved Successfully';
+      let response = this.employeeService.createEmployee(employee).subscribe(
+        data => {
           this.employeeIdUpdate = null;
           // this.employeeForm.reset();
           this.returnToEmployee();
+        }
+        , error => {
+          console.log(error.status);
+          this.errorstatus = error.status;
         }
       );
     } else {

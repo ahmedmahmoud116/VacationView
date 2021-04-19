@@ -65,6 +65,9 @@
                               <button type="submit" class="btn btn-primary" [disabled]="!employeeForm.valid" >Submit</button>
                               <button type="reset" class="btn btn-danger" (click)="resetForm()">Reset</button>
                             </td>
+                             <td class="col-12 col-md-12">
+                                <div class="diverror" *ngIf="errorstatus != 200">Something went wrong</div>
+                             </td>
                         </tr>
                     </table>
                 </form>
