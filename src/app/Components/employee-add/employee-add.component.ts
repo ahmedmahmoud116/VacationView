@@ -18,6 +18,9 @@ export class EmployeeAddComponent implements OnInit {
   employeeForm: any;
   dataSaved = false;
   employeeIdUpdate = null as any;
+
+  static _errormessage: string = null;
+
   constructor(private formbulider: FormBuilder,
               private employeeService:EmployeeService,
               private route: ActivatedRoute,
@@ -27,7 +30,7 @@ export class EmployeeAddComponent implements OnInit {
     this.employeeForm = this.formbulider.group({
       fullName: ['', [Validators.required]],
       birthDate: ['', [Validators.required]],
-      email: ['', [Validators.required, ValidatorServiceService.emailValidator]],
+      email: ['', [Validators.required, this.emailValidator]],
       gender: ['', [Validators.required]],
     });
     this.employeeIdUpdate= this.route.snapshot.params['id'];
@@ -87,4 +90,25 @@ export class EmployeeAddComponent implements OnInit {
   returnToEmployee() {
     this.router.navigate([`employee`]);
   }
+
+  /**Validator Functions */
+  emailValidator(control) {
+    // RFC 2822 compliant regex
+    if (
+      control.value.match(
+        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
+      )
+    ) {
+      EmployeeAddComponent._errormessage = null;
+      return null;
+    } else {
+      EmployeeAddComponent._errormessage ='Invalid email address';
+      return 'Invalid email address';
+    }
+  }
+
+  get errormessage(){
+    return EmployeeAddComponent._errormessage;
+  }
+
 }

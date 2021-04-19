@@ -81,3 +81,7 @@ table{
       align-items: start;
   }
 }
+
+.diverror{
+  color: red;
+}

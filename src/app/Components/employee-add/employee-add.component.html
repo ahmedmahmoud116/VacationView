@@ -19,8 +19,10 @@
                     <table id="table1">
                         <tr class="row row1">
                             <td class="col-12 col-md-6">
-                                <input formControlName="fullName" class="inputs" placeholder="Employee Name" required uniqueName>
-                                <app-control-messages [control]="employeeForm.get('fullName')"></app-control-messages>
+                                <input formControlName="fullName" class="inputs" placeholder="Employee Name">
+                                <div *ngIf="employeeForm.get('fullName').invalid && (employeeForm.get('fullName').dirty || employeeForm.get('fullName').touched)">
+                                  <div class="diverror" *ngIf="employeeForm.get('fullName').errors.required">Required</div>
+                                </div>
                                 <!--<mat-error>
                                   <span *ngIf="!employeeForm.get('fullName').value && employeeForm.get('fullName').touched"></span>
                                 </mat-error>-->
@@ -30,13 +32,18 @@
                                 <input class="inputs" matInput [matDatepicker]="picker"matTooltip="Enter Date Of Birth" formControlName="birthDate"placeholder="Choose Date Of Birth">
                                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                                 <mat-datepicker #picker></mat-datepicker>
-                                <app-control-messages [control]="employeeForm.get('birthDate')"></app-control-messages>
+                                <div *ngIf="employeeForm.get('birthDate').invalid && (employeeForm.get('birthDate').dirty || employeeForm.get('birthDate').touched)">
+                                  <div class="diverror" *ngIf="employeeForm.get('birthDate').errors.required">Required</div>
+                                </div>
                             </td>
                         </tr>
                         <tr class="row row1">
                             <td class="col-12 col-md-6">
                                 <input formControlName="email" class="inputs" placeholder="Email">
-                                <app-control-messages [control]="employeeForm.get('email')"></app-control-messages>
+                                <div *ngIf="employeeForm.get('email').invalid && (employeeForm.get('email').dirty || employeeForm.get('email').touched)">
+                                  <div class="diverror" *ngIf="employeeForm.get('email').errors.required">Required</div>
+                                  <div class="diverror" *ngIf="errormessage !== null">{{errormessage}}</div>
+                                </div>
                                 <!--<mat-error>
                                   <span *ngIf="!employeeForm.get('email').value && employeeForm.get('email').touched"></span>
                                 </mat-error>-->
@@ -47,7 +54,9 @@
                                   <mat-radio-button class="mr-1" value="Male">Male</mat-radio-button>
                                   <mat-radio-button class="mr-1" value="Female">Female</mat-radio-button>
                                 </mat-radio-group>
-                                <app-control-messages [control]="employeeForm.get('gender')"></app-control-messages>
+                                <div *ngIf="employeeForm.get('gender').invalid && (employeeForm.get('gender').dirty || employeeForm.get('gender').touched)">
+                                  <div class="diverror" *ngIf="employeeForm.get('gender').errors.required">Required</div>
+                                </div>
                             </td>
                         </tr>
                         <tr class="row">

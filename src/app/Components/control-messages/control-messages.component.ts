@@ -14,6 +14,8 @@ export class ControlMessagesComponent{
   @Input() control: FormControl;
   @Input() vacationType: Vacation;
   @Input() vacationView: Vacationview;
+  @Input() editID: number;
+  @Input() editValue: number;
 
   constructor() { }
 
@@ -27,6 +29,8 @@ export class ControlMessagesComponent{
           propertyName,
           this.vacationType,
           this.vacationView,
+          this.editID,
+          this.editValue,
           this.control.errors[propertyName]
         );
       }

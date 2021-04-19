@@ -15,6 +15,9 @@ export class VacationAddComponent implements OnInit {
   vacationForm: any;
   dataSaved = false;
   vacationIdUpdate = null as any;
+
+  static _errormessage: string = null;
+
   constructor(private formbulider: FormBuilder,
               private vacationservice:VacationService,
               private route: ActivatedRoute,
@@ -23,7 +26,7 @@ export class VacationAddComponent implements OnInit {
   ngOnInit(): void {
     this.vacationForm = this.formbulider.group({
       type: ['', [Validators.required]],
-      balance: ['', [Validators.required,ValidatorServiceService.positiveValidator]]
+      balance: ['', [Validators.required,this.positiveValidator]]
     });
     this.vacationIdUpdate= this.route.snapshot.params['id'];
     if(this.vacationIdUpdate != null)
@@ -79,5 +82,23 @@ export class VacationAddComponent implements OnInit {
 
   returnToVacation() {
     this.router.navigate([`vacation`]);
+  }
+
+  /**validator functions */
+  positiveValidator(control) {
+    // RFC 2822 compliant regex
+    if (
+      String(control.value).match(/^[1-9]+[0-9]*$/)
+    ) {
+      VacationAddComponent._errormessage = null;
+      return null;
+    } else {
+      VacationAddComponent._errormessage = 'Invalid Number';
+      return 'Invalid Number';
+    }
+  }
+
+  get errormessage(){
+    return VacationAddComponent._errormessage;
   }
 }

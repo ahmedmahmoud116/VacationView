@@ -20,8 +20,13 @@ export class EmployeebalanceAddComponent implements OnInit {
   vacationList: any;
   employeeList: any;
   vacationObj: any;
-  vacationtype: Vacation;
 
+
+  static vacationObjst: any;
+  static vacationtype: Vacation = null;
+  static editDays:number;
+  static vacatationIDEdit: number = 0;
+  static _errormessage: string = null;
 
   constructor(private formbulider: FormBuilder,
               private employeebalanceService:EmployeebalanceService,
@@ -34,7 +39,7 @@ export class EmployeebalanceAddComponent implements OnInit {
     this.employeebalanceForm = this.formbulider.group({
       employeeid: ['', [Validators.required]],
       vacationid: ['', [Validators.required]],
-      balance: ['', [Validators.required, ValidatorServiceService.positiveValidator, ValidatorServiceService.vacatationbalance]]
+      balance: ['', [Validators.required, this.positiveValidator, this.vacatationbalance]]
     });
     // this.employeebalanceIdUpdate= this.route.snapshot.params['id'];
     // if(this.employeebalanceIdUpdate != null)
@@ -99,12 +104,57 @@ export class EmployeebalanceAddComponent implements OnInit {
     return type;
   }
 
-  ngAfterContentChecked(): void {
-    //Called after every check of the component's or directive's content.
-    //Add 'implements AfterContentChecked' to the class.
+  ngDoCheck(): void {
+    //Called every time that the input properties of a component or a directive are checked. Use it to extend change detection by performing a custom check.
+    //Add 'implements DoCheck' to the class.
     if(this.vacationObj != null){
-      this.vacationtype = this.vacationList.filter(v => v.id == this.vacationObj)[0];
+      EmployeebalanceAddComponent.vacationtype = this.vacationList.filter(v => v.id == this.vacationObj)[0];
     }
+    if(this.positiveValidator(this.employeebalanceForm.controls['balance']) == null)
+      this.vacatationbalance(this.employeebalanceForm.controls['balance']);
+    else
+      this.positiveValidator(this.employeebalanceForm.controls['balance']);
+  }
+
+
+  /**validator Functions **/
+  vacatationbalance(control) {
+
+    if(control.value !== '' && EmployeebalanceAddComponent.vacationtype == null){
+      EmployeebalanceAddComponent._errormessage = '';
+      return 'error';
+    }
+    if(EmployeebalanceAddComponent.vacationtype !== null && control.value !== ''){
+      if (
+        control.value <= EmployeebalanceAddComponent.vacationtype.balance
+      ) {
+        EmployeebalanceAddComponent._errormessage = null;
+        return null;
+      } else {
+        EmployeebalanceAddComponent._errormessage = `Balance must be lower than ${EmployeebalanceAddComponent.vacationtype.balance}`;
+        return `Balance must be lower than ${EmployeebalanceAddComponent.vacationtype.balance}`;
+      }
+    }
+    else
+      EmployeebalanceAddComponent._errormessage = null;
+      return null;
+  }
+
+  positiveValidator(control) {
+    // RFC 2822 compliant regex
+    if (
+      String(control.value).match(/^[1-9]+[0-9]*$/)
+    ) {
+      EmployeebalanceAddComponent._errormessage = null;
+      return null;
+    } else {
+      EmployeebalanceAddComponent._errormessage = 'Invalid Number';
+      return 'Invalid Number';
+    }
+  }
+
+  get errormessage(){
+    return EmployeebalanceAddComponent._errormessage;
   }
 
 }

@@ -23,20 +23,30 @@
                                 <select [(ngModel)]="employeeObj" name="EmployeeName" class="dropdown" formControlName="employeeid">
                                     <option *ngFor="let employee of employeeList" [value]="employee.id">{{employee.fullName}}</option>
                                 </select>
-                                <app-control-messages [control]="vacationrequestForm.get('employeeid')"></app-control-messages>
+                                <!--<app-control-messages [editID]="vacationrequestIdUpdate" [editValue]="editDays" [vacationView]="vacationview" [control]="vacationrequestForm.get('employeeid')"></app-control-messages>-->
+                                <div *ngIf="vacationrequestForm.get('employeeid').invalid && (vacationrequestForm.get('employeeid').dirty || vacationrequestForm.get('employeeid').touched)">
+                                  <div class="diverror" *ngIf="vacationrequestForm.get('employeeid').errors.required">Required</div>
+                                </div>
                             </td>
                             <td class="col-12 col-md-6">
                                 <label for="VacationType">Vacation Type:</label>
                                 <select [(ngModel)]="vacationObj" name="VacationType" class="dropdown" formControlName="vacationid">
                                     <option *ngFor="let vacation of vacationList" [value]="vacation.id">{{vacation.type}}</option>
                                 </select>
-                                <app-control-messages [control]="vacationrequestForm.get('vacationid')"></app-control-messages>
+                               <!-- <app-control-messages [editID]="vacationrequestIdUpdate" [editValue]="editDays" [vacationView]="vacationview" [control]="vacationrequestForm.get('vacationid')"></app-control-messages>-->
+                              <div *ngIf="vacationrequestForm.get('vacationid').invalid && (vacationrequestForm.get('vacationid').dirty || vacationrequestForm.get('vacationid').touched)">
+                                  <div class="diverror" *ngIf="vacationrequestForm.get('vacationid').errors.required">Required</div>
+                              </div>
                             </td>
                         </tr>
                         <tr class="row row1">
                             <td class="col-12 col-md-12">
                                 <input formControlName="days" class="inputs" placeholder="Days">
-                                <app-control-messages [vacationView]="vacationview" [control]="vacationrequestForm.get('days')"></app-control-messages>
+                                <!--<app-control-messages [editID]="vacationrequestIdUpdate" [editValue]="editDays" [vacationView]="vacationview" [control]="vacationrequestForm.get('days')"></app-control-messages>-->
+                                <div *ngIf="vacationrequestForm.get('days').invalid && (vacationrequestForm.get('days').dirty || vacationrequestForm.get('days').touched)">
+                                  <div class="diverror" *ngIf="vacationrequestForm.get('days').errors.required">Required</div>
+                                  <div class="diverror" *ngIf="errormessage !== null"> {{errormessage}}</div>
+                                </div>
                             </td>
                         </tr>
                         <tr class="row">

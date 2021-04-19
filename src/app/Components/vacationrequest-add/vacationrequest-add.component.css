@@ -71,4 +71,10 @@ table{
       justify-content: start;
       align-items: start;
   }
+
 }
+
+.diverror{
+  color: red;
+}
+

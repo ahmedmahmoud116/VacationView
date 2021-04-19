@@ -39,7 +39,6 @@ export class EmployeebalanceComponent implements OnInit{
     this.employeebalanceService.getAllEmployeeBalance().subscribe(Vacationview =>{
       this.allVacationviews = Vacationview;
     });
-
   }
 
   deleteEmployeebalance(employeebalanceId: number) {

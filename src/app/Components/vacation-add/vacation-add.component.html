@@ -20,11 +20,16 @@
                         <tr class="row row1">
                             <td class="col-12 col-md-6">
                                 <input formControlName="type" class="inputs" placeholder="Vacation Type">
-                                <app-control-messages [control]="vacationForm.get('type')"></app-control-messages>
+                                <div *ngIf="vacationForm.get('type').invalid && (vacationForm.get('type').dirty || vacationForm.get('type').touched)">
+                                  <div class="diverror" *ngIf="vacationForm.get('type').errors.required">Required</div>
+                                </div>
                             </td>
                             <td class="col-12 col-md-6">
                                 <input formControlName="balance" class="inputs" placeholder="Balance">
-                                <app-control-messages [control]="vacationForm.get('balance')"></app-control-messages>
+                                <div *ngIf="vacationForm.get('balance').invalid && (vacationForm.get('balance').dirty || vacationForm.get('balance').touched)">
+                                  <div class="diverror" *ngIf="vacationForm.get('balance').errors.required">Required</div>
+                                  <div class="diverror" *ngIf="errormessage !== null"> {{errormessage}}</div>
+                                </div>
                             </td>
                         </tr>
                         <tr class="row">

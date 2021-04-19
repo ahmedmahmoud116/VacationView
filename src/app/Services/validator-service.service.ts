@@ -9,24 +9,34 @@ import { Vacationview } from '../Models/vacationview';
 export class ValidatorServiceService {
   static vacationType: Vacation = null;
   static vacationView: Vacationview = null;
+  static editID: number = 0;
+  static editValue: number;
   // constructor(@Inject('vacationType') vacationType: Vacation){
   //   ValidatorServiceService.vacationType = vacationType;
   // }
 
-  static getValidatorErrorMessage(validatorName: string,  vacationtype?: Vacation, vacationview?: Vacationview, validatorValue?: any) {
+  static getValidatorErrorMessage(validatorName: string,
+                                  vacationtype?: Vacation,
+                                  vacationview?: Vacationview,
+                                  editid?: number,
+                                  editvalue?: number,
+                                  validatorValue?: any) {
     if(vacationtype == null) vacationtype = new Vacation();
     if(vacationview == null) vacationview = new Vacationview();
     let config = {
       required: 'Required',
       invalidbalance: `Balance must be lower than ${vacationtype.balance}`,
-      invaliddays: `Balance must be lower than ${+vacationview.balance - +vacationview.used + +1}`,
+      invaliddays: `days must be lower than ${+vacationview.balance - +vacationview.used + +1}`,
+      invalideditdays:`days must be lower than ${+vacationview.balance - (+vacationview.used - +editvalue) + +1}`,
       invalidEmailAddress: 'Invalid email address',
       invalidNumber:'Invalid Number',
       minlength: `Minimum length ${validatorValue.requiredLength}`
     };
     ValidatorServiceService.vacationType = vacationtype;
     ValidatorServiceService.vacationView = vacationview;
-
+    if(editid != null)
+      ValidatorServiceService.editID = editid;
+    ValidatorServiceService.editValue = editvalue;
     return config[validatorName];
   }
 
@@ -70,14 +80,27 @@ export class ValidatorServiceService {
   }
 
   static vacatationdays(control) {
+    let currval = ValidatorServiceService.editValue;
     if(ValidatorServiceService.vacationView !== null && control.value !== ''){
-      console.log("control: " + control.value)
-      if (
-        control.value <= (+ValidatorServiceService.vacationView.balance - +ValidatorServiceService.vacationView.used)
-      ) {
-        return null;
-      } else {
-        return { invaliddays: true };
+      if(ValidatorServiceService.editID == 0){
+        console.log(+ValidatorServiceService.vacationView.balance - +ValidatorServiceService.vacationView.used);
+        if (
+          control.value <= (+ValidatorServiceService.vacationView.balance - +ValidatorServiceService.vacationView.used)
+        ) {
+          return null;
+        } else {
+          return { invaliddays: true };
+        }
+      }
+      else{
+        if (
+          control.value <= (+ValidatorServiceService.vacationView.balance - (+ValidatorServiceService.vacationView.used - +currval))
+        ) {
+          return null;
+        } else {
+          return { invalideditdays: true };
+        }
+
       }
     }
     else

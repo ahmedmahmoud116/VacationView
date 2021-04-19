@@ -23,20 +23,30 @@
                                 <select name="EmployeeName" class="dropdown" formControlName="employeeid">
                                     <option *ngFor="let employee of employeeList" [value]="convertValue(employee.id)">{{employee.fullName}}</option>
                                 </select>
-                              <app-control-messages [control]="employeebalanceForm.get('employeeid')"></app-control-messages>
+                              <!--<app-control-messages [control]="employeebalanceForm.get('employeeid')"></app-control-messages>-->
+                               <div *ngIf="employeebalanceForm.get('employeeid').invalid && (employeebalanceForm.get('employeeid').dirty || employeebalanceForm.get('employeeid').touched)">
+                                  <div class="diverror" *ngIf="employeebalanceForm.get('employeeid').errors.required">Required</div>
+                              </div>
                             </td>
                             <td class="col-12 col-md-6">
                                 <label for="VacationType">Vacation Type:</label>
                                 <select [(ngModel)]="vacationObj" class="dropdown" formControlName="vacationid">
                                     <option *ngFor="let vacation of vacationList" [value]="convertValue(vacation.id)">{{vacation.type}}</option>
                                 </select>
-                                <app-control-messages [control]="employeebalanceForm.get('vacationid')"></app-control-messages>
+                                <!--<app-control-messages [control]="employeebalanceForm.get('vacationid')"></app-control-messages>-->
+                                <div *ngIf="employeebalanceForm.get('vacationid').invalid && (employeebalanceForm.get('vacationid').dirty || employeebalanceForm.get('vacationid').touched)">
+                                  <div class="diverror" *ngIf="employeebalanceForm.get('vacationid').errors.required">Required</div>
+                                </div>
                             </td>
                         </tr>
                         <tr class="row row1">
                              <td class="col-12 col-md-12">
                                 <input formControlName="balance" class="inputs" placeholder="Balance">
-                                <app-control-messages [vacationType]="vacationtype" [control]="employeebalanceForm.get('balance')"></app-control-messages>
+                                <!--<app-control-messages [vacationType]="vacationtype" [control]="employeebalanceForm.get('balance')"></app-control-messages>-->
+                                <div *ngIf="employeebalanceForm.get('balance').invalid && (employeebalanceForm.get('balance').dirty || employeebalanceForm.get('balance').touched)">
+                                  <div class="diverror" *ngIf="employeebalanceForm.get('balance').errors.required">Required</div>
+                                  <div class="diverror" *ngIf="errormessage !== null"> {{errormessage}}</div>
+                                </div>
                             </td>
                         </tr>
                         <tr class="row">
