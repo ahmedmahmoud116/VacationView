@@ -4,6 +4,7 @@ import { Vacation } from '../../Models/vacation';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ValidatorServiceService } from '../../Services/validator-service.service';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-vacation-add',
@@ -18,15 +19,22 @@ export class VacationAddComponent implements OnInit {
 
   static _errormessage: string = null;
 
+  errorstatus: number = 200;
+  message: string = "Something Went Wrong..";
+  title: string = "vacation Form";
+
   constructor(private formbulider: FormBuilder,
               private vacationservice:VacationService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.vacationForm = this.formbulider.group({
       type: ['', [Validators.required]],
       balance: ['', [Validators.required,this.positiveValidator]]
+      // type: [''],
+      // balance: ['']
     });
     this.vacationIdUpdate= this.route.snapshot.params['id'];
     if(this.vacationIdUpdate != null)
@@ -44,23 +52,31 @@ export class VacationAddComponent implements OnInit {
     console.log(this.vacationIdUpdate);
     if (this.vacationIdUpdate == null) {
       this.vacationservice.createVacation(vacation).subscribe(
-        () => {
+        data => {
           this.dataSaved = true;
           // this.message = 'Record saved Successfully';
           this.vacationIdUpdate = null;
           // this.employeeForm.reset();
           this.returnToVacation();
+        }, error => {
+            console.log("error on create: " + error.status);
+            this.errorstatus = error.status;
+            this.notificationService.showError(this.message, this.title);
         }
       );
     } else {
       vacation.id = this.vacationIdUpdate;
-      this.vacationservice.updateVacation(vacation.id, vacation).subscribe(() => {
+      this.vacationservice.updateVacation(vacation.id, vacation).subscribe(data => {
         this.dataSaved = true;
         // this.message = 'Record Updated Successfully';
         this.vacationIdUpdate = null;
         // this.employeeForm.reset();
         this.returnToVacation();
-      });
+      }, error => {
+        console.log("error on edit: " + error.status);
+        this.errorstatus = error.status;
+        this.notificationService.showError(this.message, this.title);
+    });
     }
   }
 

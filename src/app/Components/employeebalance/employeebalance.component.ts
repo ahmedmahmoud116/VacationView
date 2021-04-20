@@ -3,6 +3,7 @@ import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { EmployeebalanceService } from '../../Services/employeebalance.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Vacationview } from '../../Models/vacationview';
+import { NotificationService } from 'src/app/Services/notification.service';
 @Component({
   selector: 'app-employeebalance',
   templateUrl: './employeebalance.component.html',
@@ -13,9 +14,14 @@ export class EmployeebalanceComponent implements OnInit{
   employeebalanceForm: any;
   vacationBalance: any;
 
+  errorstatus: number = 200;
+  message: string = "Something Went Wrong..";
+  title: string = "vacation Form";
+
   constructor(private employeebalanceService:EmployeebalanceService,
               private router:Router,
-              private formbulider: FormBuilder)
+              private formbulider: FormBuilder,
+              private notificationService: NotificationService)
               { }
 
   ngOnInit(): void {
@@ -43,8 +49,12 @@ export class EmployeebalanceComponent implements OnInit{
 
   deleteEmployeebalance(employeebalanceId: number) {
     if (confirm("Are you sure you want to delete this ?")) {
-    this.employeebalanceService.deleteEmployeeBalanceById(employeebalanceId).subscribe(() => {
+    this.employeebalanceService.deleteEmployeeBalanceById(employeebalanceId).subscribe(data => {
       this.loadAllEmployeebalances();
+    }, error =>{
+        console.log("error on delete: " + error.status);
+        this.errorstatus = error.status;
+        this.notificationService.showError(this.message, this.title);
     });
   }
  }

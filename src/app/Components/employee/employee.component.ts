@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, NgForm, Validators } from '@angular/forms';
 import { EmployeeService } from '../../Services/employee.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-employee',
@@ -11,7 +12,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class EmployeeComponent implements OnInit {
   employeeForm: any;
   allEmployees:any =  [];
-  constructor(private formbulider: FormBuilder, private employeeService:EmployeeService, private router:Router) { }
+  errorstatus: number = 200;
+  message: string = "Something Went Wrong..";
+  title: string = "Vacation Form"
+  constructor(private formbulider: FormBuilder,
+              private employeeService:EmployeeService,
+              private router:Router,
+              private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.loadAllEmployees();
@@ -26,12 +33,17 @@ export class EmployeeComponent implements OnInit {
 
   deleteEmployee(employeeId: number) {
     if (confirm("Are you sure you want to delete this ?")) {
-    this.employeeService.deleteEmployeeById(employeeId).subscribe(() => {
+    this.employeeService.deleteEmployeeById(employeeId).subscribe(data => {
       // this.dataSaved = true;
       this.loadAllEmployees();
       // this.employeeIdUpdate = null;
       // this.employeeForm.reset();
-    });
+    },error => {
+      console.log("error on delete: " + error.status);
+      this.errorstatus = error.status;
+      this.notificationService.showError(this.message, this.title);
+    }
+    );
   }
  }
 

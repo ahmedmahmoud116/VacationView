@@ -3,9 +3,7 @@ import { EmployeeService } from '../../Services/employee.service';
 import { Employee } from '../../Models/employee';
 import { FormBuilder, NgForm, Validators, FormGroup, FormControl, FormArray} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { iif } from 'rxjs';
-import { ValidatorServiceService } from '../../Services/validator-service.service';
-import { ControlMessagesComponent } from '../control-messages/control-messages.component';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-employee-add',
@@ -19,24 +17,27 @@ export class EmployeeAddComponent implements OnInit {
   dataSaved = false;
   employeeIdUpdate = null as any;
   errorstatus: number = 200;
+  message: string = "Something Went Wrong..";
+  title: string = "vacation Form";
 
   static _errormessage: string = null;
 
   constructor(private formbulider: FormBuilder,
               private employeeService:EmployeeService,
               private route: ActivatedRoute,
-              private router: Router) { }
+              private router: Router,
+              private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.employeeForm = this.formbulider.group({
-      // fullName: ['', [Validators.required]],
-      // birthDate: ['', [Validators.required]],
-      // email: ['', [Validators.required, this.emailValidator]],
-      // gender: ['', [Validators.required]],
-      fullName: [''],
-      birthDate: [''],
-      email: [''],
-      gender: [''],
+      fullName: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
+      email: ['', [Validators.required, this.emailValidator]],
+      gender: ['', [Validators.required]],
+      // fullName: [''],
+      // birthDate: [''],
+      // email: [''],
+      // gender: [''],
     });
     this.employeeIdUpdate= this.route.snapshot.params['id'];
     if(this.employeeIdUpdate != null)
@@ -60,18 +61,23 @@ export class EmployeeAddComponent implements OnInit {
           this.returnToEmployee();
         }
         , error => {
-          console.log(error.status);
+          console.log("error on create: " + error.status);
           this.errorstatus = error.status;
+          this.notificationService.showError(this.message, this.title);
         }
       );
     } else {
       employee.id = this.employeeIdUpdate;
-      this.employeeService.updateEmployee(employee.id, employee).subscribe(() => {
+      this.employeeService.updateEmployee(employee.id, employee).subscribe(data => {
         this.dataSaved = true;
         // this.message = 'Record Updated Successfully';
         this.employeeIdUpdate = null;
         // this.employeeForm.reset();
         this.returnToEmployee();
+      }, error => {
+        console.log("error on edit: " + error.status);
+        this.errorstatus = error.status;
+        this.notificationService.showError(this.message, this.title);
       });
     }
   }

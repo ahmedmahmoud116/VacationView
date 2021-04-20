@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VacationService } from '../../Services/vacation.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-vacation',
@@ -9,7 +10,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class VacationComponent implements OnInit {
   allVacations:any =  [];
-  constructor(private vacationservice:VacationService, private router:Router) { }
+
+  errorstatus: number = 200;
+  message: string = "Something Went Wrong..";
+  title: string = "vacation Form";
+
+  constructor(private vacationservice:VacationService,
+              private router:Router,
+              private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.loadAllVacations();
@@ -24,9 +32,13 @@ export class VacationComponent implements OnInit {
 
   deleteVacation(vacationId: number) {
     if (confirm("Are you sure you want to delete this ?")) {
-    this.vacationservice.deleteVacationById(vacationId).subscribe(() => {
+    this.vacationservice.deleteVacationById(vacationId).subscribe(data => {
       this.loadAllVacations();
-    });
+    },error => {
+      console.log("error on delete: " + error.status);
+      this.errorstatus = error.status;
+      this.notificationService.showError(this.message, this.title);
+  });
   }
  }
 

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VacationrequestService } from '../../Services/vacationrequest.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-vacationrequest',
@@ -9,7 +10,14 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class VacationrequestComponent implements OnInit {
   allVacationrequestviews:any =  [];
-  constructor(private vacationrequestservice:VacationrequestService, private router:Router) { }
+
+  errorstatus: number = 200;
+  message: string = "Something Went Wrong..";
+  title: string = "vacation Form";
+
+  constructor(private vacationrequestservice:VacationrequestService,
+              private router:Router,
+              private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.loadAllVacationrequests();
@@ -29,9 +37,13 @@ export class VacationrequestComponent implements OnInit {
 
   deleteVacationrequest(vacationrequestId: number) {
     if (confirm("Are you sure you want to delete this ?")) {
-    this.vacationrequestservice.deleteVacationRequestById(vacationrequestId).subscribe(() => {
+    this.vacationrequestservice.deleteVacationRequestById(vacationrequestId).subscribe(data => {
       this.loadAllVacationrequests();
-    });
+    }, error => {
+      console.log("error on delete: " + error.status);
+      this.errorstatus = error.status;
+      this.notificationService.showError(this.message, this.title);
+  });
   }
   this.loadAllVacationrequests();
  }

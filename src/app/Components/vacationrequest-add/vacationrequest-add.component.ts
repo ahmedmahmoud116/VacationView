@@ -10,6 +10,7 @@ import { ValidatorrequestService } from 'src/app/Services/validatorrequest.servi
 import { Vacationview } from 'src/app/Models/vacationview';
 import { ValidatorServiceService } from 'src/app/Services/validator-service.service';
 import { ControlMessagesComponent } from '../control-messages/control-messages.component';
+import { NotificationService } from 'src/app/Services/notification.service';
 
 @Component({
   selector: 'app-vacationrequest-add',
@@ -36,19 +37,27 @@ export class VacationrequestAddComponent implements OnInit {
   static vacatationIDEdit: number = 0;
   static _errormessage: string = null;
 
+  errorstatus: number = 200;
+  message: string = "Something Went Wrong..";
+  title: string = "vacation Form";
+
   constructor(private formbulider: FormBuilder,
               private vacationrequestservice: VacationrequestService,
               private route: ActivatedRoute,
               private router: Router,
               private vacationService: VacationService,
               private employeeService: EmployeeService,
-              private employeebalanceService: EmployeebalanceService) { }
+              private employeebalanceService: EmployeebalanceService,
+              private notificationService: NotificationService) { }
 
   ngOnInit(): void {
     this.vacationrequestForm = this.formbulider.group({
-      employeeid: ['', [Validators.required]],
-      vacationid: ['', [Validators.required]],
-      days: ['', [Validators.required, this.positiveValidator, this.vacatationdays]]
+      // employeeid: ['', [Validators.required]],
+      // vacationid: ['', [Validators.required]],
+      // days: ['', [Validators.required, this.positiveValidator, this.vacatationdays]]
+      employeeid: [''],
+      vacationid: [''],
+      days: ['']
     });
     // this.employeebalanceIdUpdate= this.route.snapshot.params['id'];
     // if(this.employeebalanceIdUpdate != null)
@@ -69,8 +78,6 @@ export class VacationrequestAddComponent implements OnInit {
     VacationrequestAddComponent.vacatationIDEdit = this.vacationrequestIdUpdate;
     VacationrequestAddComponent.vacationObjst = this.vacationObj;
     VacationrequestAddComponent.employeeObjst = this.employeeObj;
-
-    console.log("errors " + this.vacationrequestForm.get('days').errors.required);
   }
 
   onFormSubmit() {
@@ -83,23 +90,31 @@ export class VacationrequestAddComponent implements OnInit {
   CreateVacationRequest(vacationrequest: Vacationrequest) {
     if (this.vacationrequestIdUpdate == null) {
       this.vacationrequestservice.createVacationRequest(vacationrequest).subscribe(
-        () => {
+        data => {
           this.dataSaved = true;
           // this.message = 'Record saved Successfully';
           this.vacationrequestIdUpdate = null;
           // this.employeeForm.reset();
           this.returnToVacationRequest();
-        }
+        },error => {
+          console.log("error on create: " + error.status);
+          this.errorstatus = error.status;
+          this.notificationService.showError(this.message, this.title);
+      }
       );
     } else {
       vacationrequest.id = this.vacationrequestIdUpdate;
-      this.vacationrequestservice.updateVacationRequest(vacationrequest.id, vacationrequest).subscribe(() => {
+      this.vacationrequestservice.updateVacationRequest(vacationrequest.id, vacationrequest).subscribe(data => {
         this.dataSaved = true;
         // this.message = 'Record Updated Successfully';
         this.vacationrequestIdUpdate = null;
         // this.employeeForm.reset();
         this.returnToVacationRequest();
-      });
+      }, error => {
+        console.log("error on edit: " + error.status);
+        this.errorstatus = error.status;
+        this.notificationService.showError(this.message, this.title);
+    });
     }
   }
 
